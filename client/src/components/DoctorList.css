@@ -1,0 +1,22 @@
+.boxing{
+    background: #E5F2CA;
+    width: 100%;
+    min-height: 670pt;
+    padding: 0pt;
+    margin: 0pt;
+}
+.card-group{
+    width: 90%;
+}
+.card{
+    margin-left: 100pt;
+margin-top: 100pt;
+    margin-right: 100pt;
+}
+.card-img-top{
+    height: 250pt;
+}
+.card-text{
+    display: list-item;
+    list-style: none;
+}

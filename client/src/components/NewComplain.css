@@ -1,0 +1,19 @@
+.boxing{
+    background: #E5F2CA;
+    width: 100%;
+    min-height: 670pt;
+    padding: 0pt;
+    margin: 0pt;
+}
+.information{
+    margin-left: 100pt;
+    padding-top: 100pt;
+        margin-right: 100pt;
+}
+.form-group{
+    width: 400pt;
+}
+.btn-success{
+    background: #BECEA4 !important;
+    border-color: #BECEA4 !important;
+}

@@ -1,0 +1,37 @@
+.head{
+    background: #BECEA4 !important;
+    
+}
+.navbar-default{
+    background: #BECEA4 !important;
+}
+ul{
+    padding-top: 0pt;
+    margin-top: 0pt;
+    margin-bottom: 10pt;
+    display: inline;
+  position: relative;
+  top: 8px;
+}
+img{
+display: inline;
+margin-right: 0pt;
+padding-right: 0pt;
+padding-left: 0pt;
+margin-left: 0pt;
+}
+
+li{
+    list-style-type: none;
+    display: inline;
+    margin-left: 24pt;
+}
+.right{
+    position: relative;
+    right: -55% !important;
+}
+.nav-link{
+    color: black !important;
+    padding: 0pt !important;
+    margin-left: 10pt;
+}

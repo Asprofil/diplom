@@ -1,0 +1,26 @@
+.boxing{
+    background: #E5F2CA;
+    width: 100%;
+    min-height: 670pt;
+    padding: 0pt;
+    margin: 0pt;
+}
+.photo{
+    width: 90%;
+}
+.list-group{
+
+    width: 450pt;
+}
+.list-group-item {
+    background: #9DAD8C !important;
+}
+
+.form-group{
+    width: 100%;
+}
+
+.btn-primary{
+    background: #BECEA4 !important;
+    border-color: #BECEA4 !important;
+}

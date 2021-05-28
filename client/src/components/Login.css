@@ -1,0 +1,14 @@
+.boxing{
+    background: #E5F2CA;
+    width: 100%;
+    min-height: 670pt;
+    padding: 0pt;
+    margin: 0pt;
+
+}
+.format{
+    margin-left: 40%;
+}
+.form-control{
+    width: 50% !important;
+}
