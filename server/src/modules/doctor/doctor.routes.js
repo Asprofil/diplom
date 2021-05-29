@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import validate from 'express-validation';
  
- import * as postController from './post.controllers';
+ import * as doctorController from './doctor.controllers';
  import doctorValidation from './doctor.validations';
  
  const routes = new Router();
@@ -9,9 +9,9 @@ import validate from 'express-validation';
  routes.doctor(
    '/',
    validate(doctorValidation.createDoctor),
-   DoctorController.createDoctor
+   doctorController.createDoctor
  );
 
- routes.get('/:id', DoctorController.getDoctorById);
+ routes.get('/:id', doctorController.getDoctorById);
  
  export default routes;
