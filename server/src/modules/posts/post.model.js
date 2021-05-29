@@ -10,6 +10,10 @@ import mongoose, { Schema } from 'mongoose';
        minlength: [3, 'Title   need to be longer!'],
        unique: true,
      },
+     parentid:{
+      type:String,
+      trim:true,
+     },
      text: {
        type: String,
        trim: true,
