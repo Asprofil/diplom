@@ -13,16 +13,22 @@ export async function createPost(req, res) {
 export async function getPostById(req, res) {
   try {
     const post = await Post.findById(req.params.id).populate('user');
-    return res.status(HTTPStatus.OK).json(post);
+    return res.status(HTTPStatus.OK).json(post[0]);
   } catch (e) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
 export async function getAllPosts(res) {
   try {
-    const filter = {};
-    const posts = await Post.find().populate('user');
-    return res.status(HTTPStatus.OK).json(posts);
+    console.log(`Trying Post.find({}) `);
+    Post.find({}).populate('user')
+    .then( post => {
+      console.log(`found some posts  ${post[0].text}`);      
+      return res.status(HTTPStatus.OK).json(post);
+    }).catch( e=>{
+      console.log(`Error Post.find({})`);
+      return res.status(HTTPStatus.BAD_REQUEST).json(e)
+    })    
   } catch (e) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }

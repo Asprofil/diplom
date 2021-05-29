@@ -18,3 +18,12 @@ export async function getSpecializationById(req, res) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
+
+export async function getAllSpecializations(req, res) {
+  try {
+    const specialization = await Specialization.find(req.params.id);
+    return res.status(HTTPStatus.OK).json(specialization);
+  } catch (e) {
+    return res.status(HTTPStatus.BAD_REQUEST).json(e);
+  }
+}
