@@ -29,4 +29,14 @@ import mongoose, { Schema } from 'mongoose';
       };
     },
   };
+
+  DoctorSchema.statics = {
+    createDoctor(args, user) {
+      return this.create({
+        ...args,
+        user,
+      });
+    },
+  };
+
   export default   mongoose.model('Doctor', DoctorSchema);

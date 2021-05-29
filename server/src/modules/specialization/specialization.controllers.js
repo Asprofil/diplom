@@ -3,7 +3,7 @@ import HTTPStatus from 'http-status';
  
 export async function createSpecialization(req, res) {
   try {
-    const specialization = await Specialization.createpecialization(req.body);
+    const specialization = await Specialization.create(req.body);
       return   res.status(HTTPStatus.CREATED).json(specialization);
   } catch (e) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
