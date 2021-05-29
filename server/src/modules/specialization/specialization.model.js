@@ -7,7 +7,7 @@ import mongoose, { Schema } from 'mongoose';
         unique: true,
        }
    })
-   SymtomSchema.methods = {
+   SpecializationSchema.methods = {
     toJSON() {
       return {
         _id: this._id,

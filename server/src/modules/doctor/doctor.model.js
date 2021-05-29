@@ -1,10 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
    
-   const   DoctorSchema = new   Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-      },
+   const DoctorSchema = new   Schema({
+
     hospitalname:{
         type:String,
         trim: true,
@@ -13,8 +10,16 @@ import mongoose, { Schema } from 'mongoose';
     workhours:{
         type:String,
         trim: true,
-    }  
+        required:[false]
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
    })
+   DoctorSchema.pre('save', function(next) {
+    return next();
+});
   DoctorSchema.methods = {
     toJSON() {
       return {

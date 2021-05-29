@@ -1,7 +1,7 @@
 import Joi from 'joi';
    
    export default   {
-     createDoctor: {
+     createSpecialization: {
        body: {
          name:   Joi.string().required(),
        },
