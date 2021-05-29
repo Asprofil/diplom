@@ -18,3 +18,21 @@ export async function getPostById(req, res) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
+export async function getAllPosts(res) {
+  try {
+    const filter = {};
+    const posts = await Post.find().populate('user');
+    return res.status(HTTPStatus.OK).json(posts);
+  } catch (e) {
+    return res.status(HTTPStatus.BAD_REQUEST).json(e);
+  }
+}
+export async function getPostByUserId(req, res) {
+  try {
+    const filter = {user : req.params.id};
+    const post = await Post.find(filter).populate('user');
+    return res.status(HTTPStatus.OK).json(post);
+  } catch (e) {
+    return res.status(HTTPStatus.BAD_REQUEST).json(e);
+  }
+}

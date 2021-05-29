@@ -15,5 +15,7 @@ import validate from 'express-validation';
  );
 
  routes.get('/:id', postController.getPostById);
+ routes.get('/user/:id', postController.getPostByUserId);
+ routes.get('/', postController.getAllPosts);
  
  export default routes;
