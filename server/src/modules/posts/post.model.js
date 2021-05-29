@@ -11,8 +11,8 @@ import mongoose, { Schema } from 'mongoose';
        unique: true,
      },
      parentid:{
-      type:String,
-      trim:true,
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
      },
      text: {
        type: String,
@@ -57,6 +57,7 @@ import mongoose, { Schema } from 'mongoose';
         createdAt: this.createdAt,
         slug: this.slug,
         user: this.user,
+        parentid:this.parentid,
         favoriteCount: this.favoriteCount,
       };
     },

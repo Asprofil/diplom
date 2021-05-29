@@ -5,6 +5,7 @@ import Joi from 'joi';
        body: {
          title:   Joi.string().required(),
          text:   Joi.string().required(),
+         parentid: Joi.string(),
        },
      },
    };
