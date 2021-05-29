@@ -16,10 +16,6 @@ import mongoose, { Schema } from 'mongoose';
        required: [true, 'Text   is required!'],
        minlength: [10, 'Text   need to be longer!'],
      },
-     doctor:
-     {
-
-     },
      slug: {
        type: String,
        trim: true,
