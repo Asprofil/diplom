@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import validate from 'express-validation';
  
- import * as symtomController from './symtom.controllers';
+ import * as symptomController from './symtom.controllers'
  import symptomValidation from './symtom.validations';
  
  const routes = new Router();
