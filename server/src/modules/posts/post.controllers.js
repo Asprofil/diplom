@@ -13,17 +13,17 @@ export async function createPost(req, res) {
 export async function getPostById(req, res) {
   try {
     const post = await Post.findById(req.params.id).populate('user');
-    return res.status(HTTPStatus.OK).json(post[0]);
+    return res.status(HTTPStatus.OK).json(post);
   } catch (e) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
-export async function getAllPosts(res) {
+export async function getAllPosts(req,res) {
   try {
     console.log(`Trying Post.find({}) `);
-    Post.find({}).populate('user')
+    Post.find({user :{ $ne: null } }).populate('user')
     .then( post => {
-      console.log(`found some posts  ${post[0].text}`);      
+      console.log(`found some posts  ${post.count}`);      
       return res.status(HTTPStatus.OK).json(post);
     }).catch( e=>{
       console.log(`Error Post.find({})`);
