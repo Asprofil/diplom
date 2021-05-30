@@ -19,26 +19,9 @@ export default function AboutUs(){
             <Header></Header>
             <div className="boxing">
             <Container>
-                  <Row>
-                <CardGroup>
-      <Col xl="6">
-  <Card>
-    <Card.Body>
-      <Card.Title>Support</Card.Title>
-      <Card.Text>
-<a>Instagram</a>
-      </Card.Text>
-      <Card.Text>
-+380992355848
-      </Card.Text>
-      <Card.Text>
-doctormail@gmail.com
-      </Card.Text>
-    </Card.Body>
-  </Card>
-  </Col>
+                  <Row xl="2">
   <Col>
-  <Card>
+  <Card className="ccol">
     <Card.Body>
       <Card.Title>Christopher Turk</Card.Title>
       <Card.Text>
@@ -54,7 +37,7 @@ doctorturk@gmail.com
   </Card>
   </Col>
   <Col>
-  <Card>
+  <Card className="ccol">
     <Card.Body>
       <Card.Title>Bob Kelso</Card.Title>
       <Card.Text>
@@ -70,7 +53,7 @@ doctorkelso@gmail.com
   </Card>
   </Col>
   <Col>
-  <Card>
+  <Card className="ccol">
     <Card.Body>
       <Card.Title>Elliot Reid</Card.Title>
       <Card.Text>
@@ -85,10 +68,25 @@ doctorreid@gmail.com
     </Card.Body>
   </Card>
   </Col>
-</CardGroup>
+  <Col>
+  <Card className="ccol">
+    <Card.Body>
+      <Card.Title>Carla Espinosa</Card.Title>
+      <Card.Text>
+<a>Instagram</a>
+      </Card.Text>
+      <Card.Text>
++380992655848
+      </Card.Text>
+      <Card.Text>
+doctorcarla@gmail.com
+      </Card.Text>
+    </Card.Body>
+  </Card>
+  </Col>
 </Row>
 <Row>
-<Card className="text-center">
+<Card className="ccol">
   <Card.Body>
     <Card.Title>About us</Card.Title>
     <Card.Text>
@@ -96,6 +94,22 @@ doctorreid@gmail.com
     </Card.Text>
   </Card.Body>
 </Card>
+<Col>
+  <Card className="csup">
+    <Card.Body>
+      <Card.Title>Support</Card.Title>
+      <Card.Text>
+<a>Instagram</a>
+      </Card.Text>
+      <Card.Text>
++380992355848
+      </Card.Text>
+      <Card.Text>
+doctormail@gmail.com
+      </Card.Text>
+    </Card.Body>
+  </Card>
+  </Col>
 </Row>
 </Container>
 </div>
