@@ -18,12 +18,12 @@ export async function getDoctorById(req, res) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
-export async function getAllDoctor(res) {
+export async function getAllDoctor(req,res) {
   try {
     console.log(`Trying Doctor.find({}) `);
-    Doctor.find({}).populate('user')
-    .then( post => {
-      console.log(`found some posts  ${doctor[0].text}`);      
+    Doctor.find({user :{ $ne: null } }).populate('user')
+    .then( doctor => {
+      console.log(`found some doctors  ${doctor.count}`);      
       return res.status(HTTPStatus.OK).json(doctor);
     }).catch( e=>{
       console.log(`Error Post.find({})`);
