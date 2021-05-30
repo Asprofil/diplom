@@ -23,9 +23,11 @@ import mongoose, { Schema } from 'mongoose';
   DoctorSchema.methods = {
     toJSON() {
       return {
+        
         _id: this._id,
         user: this.user,
-        hospitalname:this.hospitalname
+        hospitalname:this.hospitalname,
+        workhours:this.workhours,
       };
     },
   };

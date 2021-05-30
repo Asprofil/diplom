@@ -15,8 +15,7 @@ import { Router } from 'express';
  );
 
  routes.get('/:id', doctorController.getDoctorById);
- routes.get('/', (req, res) => {
-  res.send('Hello world!');
-});
+ routes.get('/user/:id', doctorController.getDoctorByUserId);
+ routes.get('/', doctorController.getAllDoctor);
 
  export default routes;
