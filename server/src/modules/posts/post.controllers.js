@@ -18,11 +18,17 @@ export async function getPostById(req, res) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
-export async function getAllPosts(res) {
+export async function getAllPosts(req,res) {
   try {
-    const filter = {};
-    const posts = await Post.find().populate('user');
-    return res.status(HTTPStatus.OK).json(posts);
+    console.log(`Trying Post.find({}) `);
+    Post.find({user :{ $ne: null } }).populate('user')
+    .then( post => {
+      console.log(`found some posts  ${post.count}`);      
+      return res.status(HTTPStatus.OK).json(post);
+    }).catch( e=>{
+      console.log(`Error Post.find({})`);
+      return res.status(HTTPStatus.BAD_REQUEST).json(e)
+    })    
   } catch (e) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }

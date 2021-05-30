@@ -1,7 +1,7 @@
 import Joi from 'joi';
    
    export default   {
-     createDoctor: {
+     createSymptom: {
        body: {
          name:   Joi.string().required(),
        },

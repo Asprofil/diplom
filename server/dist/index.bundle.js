@@ -135,6 +135,90 @@ eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar
 
 /***/ }),
 
+/***/ "./src/modules/doctor/doctor.controllers.js":
+/*!**************************************************!*\
+  !*** ./src/modules/doctor/doctor.controllers.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.createDoctor = createDoctor;\nexports.getDoctorById = getDoctorById;\n\nvar _doctor = __webpack_require__(/*! ./doctor.model */ \"./src/modules/doctor/doctor.model.js\");\n\nvar _doctor2 = _interopRequireDefault(_doctor);\n\nvar _httpStatus = __webpack_require__(/*! http-status */ \"http-status\");\n\nvar _httpStatus2 = _interopRequireDefault(_httpStatus);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nasync function createDoctor(req, res) {\n  try {\n    const doctor = await _doctor2.default.createDoctor(req.body, req.user._id);\n    return res.status(_httpStatus2.default.CREATED).json(doctor);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getDoctorById(req, res) {\n  try {\n    const doctor = await _doctor2.default.findById(req.params.id).populate('user');\n    return res.status(_httpStatus2.default.OK).json(doctor);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\n//# sourceURL=webpack:///./src/modules/doctor/doctor.controllers.js?");
+
+/***/ }),
+
+/***/ "./src/modules/doctor/doctor.model.js":
+/*!********************************************!*\
+  !*** ./src/modules/doctor/doctor.model.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst DoctorSchema = new _mongoose.Schema({\n  hospitalname: {\n    type: String,\n    trim: true,\n    required: [true, 'Hospital name is required!']\n  },\n  workhours: {\n    type: String,\n    trim: true,\n    required: [false]\n  },\n  user: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'User'\n  }\n});\nDoctorSchema.pre('save', function (next) {\n  return next();\n});\nDoctorSchema.methods = {\n  toJSON() {\n    return {\n      _id: this._id,\n      user: this.user,\n      hospitalname: this.hospitalname\n    };\n  }\n\n};\nDoctorSchema.statics = {\n  createDoctor(args, user) {\n    return this.create({ ...args,\n      user\n    });\n  }\n\n};\nexports.default = _mongoose2.default.model('Doctor', DoctorSchema);\n\n//# sourceURL=webpack:///./src/modules/doctor/doctor.model.js?");
+
+/***/ }),
+
+/***/ "./src/modules/doctor/doctor.routes.js":
+/*!*********************************************!*\
+  !*** ./src/modules/doctor/doctor.routes.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _doctor = __webpack_require__(/*! ./doctor.controllers */ \"./src/modules/doctor/doctor.controllers.js\");\n\nvar doctorController = _interopRequireWildcard(_doctor);\n\nvar _auth = __webpack_require__(/*! ../../services/auth.services */ \"./src/services/auth.services.js\");\n\nvar _doctor2 = __webpack_require__(/*! ./doctor.validations */ \"./src/modules/doctor/doctor.validations.js\");\n\nvar _doctor3 = _interopRequireDefault(_doctor2);\n\nvar _expressValidation = __webpack_require__(/*! express-validation */ \"express-validation\");\n\nvar _expressValidation2 = _interopRequireDefault(_expressValidation);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \"function\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }\n\nfunction _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \"object\" && typeof obj !== \"function\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \"default\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }\n\nconst routes = new _express.Router();\nroutes.post('/', _auth.authJwt, (0, _expressValidation2.default)(_doctor3.default.createDoctor), doctorController.createDoctor);\nroutes.get('/:id', doctorController.getDoctorById);\nroutes.get('/', (req, res) => {\n  res.send('Hello world!');\n});\nexports.default = routes;\n\n//# sourceURL=webpack:///./src/modules/doctor/doctor.routes.js?");
+
+/***/ }),
+
+/***/ "./src/modules/doctor/doctor.validations.js":
+/*!**************************************************!*\
+  !*** ./src/modules/doctor/doctor.validations.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _joi = __webpack_require__(/*! joi */ \"joi\");\n\nvar _joi2 = _interopRequireDefault(_joi);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = {\n  createDoctor: {\n    body: {\n      hospitalname: _joi2.default.string().required(),\n      workhours: _joi2.default.string().required()\n    }\n  }\n};\n\n//# sourceURL=webpack:///./src/modules/doctor/doctor.validations.js?");
+
+/***/ }),
+
+/***/ "./src/modules/doctorspecialization/doctorspecialization.controllers.js":
+/*!******************************************************************************!*\
+  !*** ./src/modules/doctorspecialization/doctorspecialization.controllers.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.createDoctorspecialization = createDoctorspecialization;\nexports.getDoctorspecializationById = getDoctorspecializationById;\n\nvar _doctorspecialization = __webpack_require__(/*! ./doctorspecialization.model */ \"./src/modules/doctorspecialization/doctorspecialization.model.js\");\n\nvar _doctorspecialization2 = _interopRequireDefault(_doctorspecialization);\n\nvar _httpStatus = __webpack_require__(/*! http-status */ \"http-status\");\n\nvar _httpStatus2 = _interopRequireDefault(_httpStatus);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nasync function createDoctorspecialization(req, res) {\n  try {\n    const doctorspecialization = await _doctorspecialization2.default.create(req.doctor.id, req.specialization);\n    return res.status(_httpStatus2.default.CREATED).json(doctorspecialization);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getDoctorspecializationById(req, res) {\n  try {\n    const doctorspecialization = await _doctorspecialization2.default.findById(req.params.id).populate('doctor');\n    return res.status(_httpStatus2.default.OK).json(doctorspecialization);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\n//# sourceURL=webpack:///./src/modules/doctorspecialization/doctorspecialization.controllers.js?");
+
+/***/ }),
+
+/***/ "./src/modules/doctorspecialization/doctorspecialization.model.js":
+/*!************************************************************************!*\
+  !*** ./src/modules/doctorspecialization/doctorspecialization.model.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst DoctorspecializationSchema = new _mongoose.Schema({\n  doctor: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'Doctor'\n  },\n  specialization: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'Specialization'\n  }\n});\nDoctorspecializationSchema.methods = {\n  toJSON() {\n    return {\n      _id: this._id,\n      doctor: this.doctor,\n      specialization: this.specialization\n    };\n  }\n\n};\nexports.default = _mongoose2.default.model('DoctorspecializationSchema', DoctorspecializationSchema);\n\n//# sourceURL=webpack:///./src/modules/doctorspecialization/doctorspecialization.model.js?");
+
+/***/ }),
+
+/***/ "./src/modules/doctorspecialization/doctorspecialization.routes.js":
+/*!*************************************************************************!*\
+  !*** ./src/modules/doctorspecialization/doctorspecialization.routes.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _doctorspecialization = __webpack_require__(/*! ./doctorspecialization.controllers */ \"./src/modules/doctorspecialization/doctorspecialization.controllers.js\");\n\nvar doctorspecializationController = _interopRequireWildcard(_doctorspecialization);\n\nfunction _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \"function\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }\n\nfunction _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \"object\" && typeof obj !== \"function\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \"default\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }\n\nconst routes = new _express.Router();\nroutes.post('/', doctorspecializationController.createDoctorspecialization);\nroutes.get('/:id', doctorspecializationController.getDoctorspecializationById);\nexports.default = routes;\n\n//# sourceURL=webpack:///./src/modules/doctorspecialization/doctorspecialization.routes.js?");
+
+/***/ }),
+
 /***/ "./src/modules/index.js":
 /*!******************************!*\
   !*** ./src/modules/index.js ***!
@@ -143,7 +227,7 @@ eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _user = __webpack_require__(/*! ./users/user.routes */ \"./src/modules/users/user.routes.js\");\n\nvar _user2 = _interopRequireDefault(_user);\n\nvar _post = __webpack_require__(/*! ./posts/post.routes */ \"./src/modules/posts/post.routes.js\");\n\nvar _post2 = _interopRequireDefault(_post);\n\nvar _auth = __webpack_require__(/*! ../services/auth.services */ \"./src/services/auth.services.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = app => {\n  app.use('/api/v1/users', _user2.default);\n  app.use('/api/v1/posts', _post2.default);\n  app.get('/hello', _auth.authJwt, (req, res) => {\n    res.send('This is a private route!!!!');\n  });\n};\n\n//# sourceURL=webpack:///./src/modules/index.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _user = __webpack_require__(/*! ./users/user.routes */ \"./src/modules/users/user.routes.js\");\n\nvar _user2 = _interopRequireDefault(_user);\n\nvar _post = __webpack_require__(/*! ./posts/post.routes */ \"./src/modules/posts/post.routes.js\");\n\nvar _post2 = _interopRequireDefault(_post);\n\nvar _doctor = __webpack_require__(/*! ./doctor/doctor.routes */ \"./src/modules/doctor/doctor.routes.js\");\n\nvar _doctor2 = _interopRequireDefault(_doctor);\n\nvar _doctorspecialization = __webpack_require__(/*! ./doctorspecialization/doctorspecialization.routes */ \"./src/modules/doctorspecialization/doctorspecialization.routes.js\");\n\nvar _doctorspecialization2 = _interopRequireDefault(_doctorspecialization);\n\nvar _specialization = __webpack_require__(/*! ./specialization/specialization.routes */ \"./src/modules/specialization/specialization.routes.js\");\n\nvar _specialization2 = _interopRequireDefault(_specialization);\n\nvar _postsymp = __webpack_require__(/*! ./postsymp/postsymp.routes */ \"./src/modules/postsymp/postsymp.routes.js\");\n\nvar _postsymp2 = _interopRequireDefault(_postsymp);\n\nvar _auth = __webpack_require__(/*! ../services/auth.services */ \"./src/services/auth.services.js\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = app => {\n  app.use('/api/v1/users', _user2.default);\n  app.use('/api/v1/posts', _post2.default);\n  app.use('/api/v1/doctors', _doctor2.default);\n  app.use('/api/v1/specialization', _specialization2.default);\n  app.use('/api/v1/doctorspecialization', _doctorspecialization2.default);\n  app.use('/api/v1/postsymp', _postsymp2.default);\n  app.get('/hello', _auth.authJwt, (req, res) => {\n    res.send('This is a private route!!!!');\n  });\n};\n\n//# sourceURL=webpack:///./src/modules/index.js?");
 
 /***/ }),
 
@@ -155,7 +239,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.createPost = createPost;\nexports.getPostById = getPostById;\nexports.getAllPosts = getAllPosts;\nexports.getPostByUserId = getPostByUserId;\n\nvar _post = __webpack_require__(/*! ./post.model */ \"./src/modules/posts/post.model.js\");\n\nvar _post2 = _interopRequireDefault(_post);\n\nvar _httpStatus = __webpack_require__(/*! http-status */ \"http-status\");\n\nvar _httpStatus2 = _interopRequireDefault(_httpStatus);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nasync function createPost(req, res) {\n  try {\n    const post = await _post2.default.createPost(req.body, req.user._id);\n    return res.status(_httpStatus2.default.CREATED).json(post);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getPostById(req, res) {\n  try {\n    const post = await _post2.default.findById(req.params.id).populate('user');\n    return res.status(_httpStatus2.default.OK).json(post);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getAllPosts(res) {\n  try {\n    const filter = {};\n    const posts = await _post2.default.find().populate('user');\n    return res.status(_httpStatus2.default.OK).json(posts);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getPostByUserId(req, res) {\n  try {\n    const filter = {\n      user: req.params.id\n    };\n    const post = await _post2.default.find(filter).populate('user');\n    return res.status(_httpStatus2.default.OK).json(post);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\n//# sourceURL=webpack:///./src/modules/posts/post.controllers.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.createPost = createPost;\nexports.getPostById = getPostById;\nexports.getAllPosts = getAllPosts;\nexports.getPostByUserId = getPostByUserId;\n\nvar _post = __webpack_require__(/*! ./post.model */ \"./src/modules/posts/post.model.js\");\n\nvar _post2 = _interopRequireDefault(_post);\n\nvar _httpStatus = __webpack_require__(/*! http-status */ \"http-status\");\n\nvar _httpStatus2 = _interopRequireDefault(_httpStatus);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nasync function createPost(req, res) {\n  try {\n    const post = await _post2.default.createPost(req.body, req.user._id);\n    return res.status(_httpStatus2.default.CREATED).json(post);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getPostById(req, res) {\n  try {\n    const post = await _post2.default.findById(req.params.id).populate('user');\n    return res.status(_httpStatus2.default.OK).json(post[0]);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getAllPosts(res) {\n  try {\n    console.log(`Trying Post.find({}) `);\n    (await _post2.default.find({}, {\n      projection: {\n        _id: 0,\n        title: 1,\n        text: 1\n      }\n    })).toString(find(err, result)).populate('user').then(post => {\n      console.log(`found some posts  ${post[0].text}`);\n      return res.status(_httpStatus2.default.OK).json(post);\n    }).catch(e => {\n      console.log(`Error Post.find({})`);\n      return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n    });\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getPostByUserId(req, res) {\n  try {\n    const filter = {\n      user: req.params.id\n    };\n    const post = await _post2.default.find(filter).populate('user');\n    return res.status(_httpStatus2.default.OK).json(post);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\n//# sourceURL=webpack:///./src/modules/posts/post.controllers.js?");
 
 /***/ }),
 
@@ -167,7 +251,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nvar _slug = __webpack_require__(/*! slug */ \"slug\");\n\nvar _slug2 = _interopRequireDefault(_slug);\n\nvar _mongooseUniqueValidator = __webpack_require__(/*! mongoose-unique-validator */ \"mongoose-unique-validator\");\n\nvar _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst PostSchema = new _mongoose.Schema({\n  title: {\n    type: String,\n    trim: true,\n    required: [true, 'Title   is required!'],\n    minlength: [3, 'Title   need to be longer!'],\n    unique: true\n  },\n  text: {\n    type: String,\n    trim: true,\n    required: [true, 'Text   is required!'],\n    minlength: [10, 'Text   need to be longer!']\n  },\n  doctor: {},\n  slug: {\n    type: String,\n    trim: true,\n    lowercase: true\n  },\n  user: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'User'\n  },\n  favoriteCount: {\n    type: Number,\n    default: 0\n  }\n}, {\n  timestamps: true\n});\nPostSchema.plugin(_mongooseUniqueValidator2.default, {\n  message: '{VALUE} already taken!'\n});\nPostSchema.pre('validate', function (next) {\n  this._slugify();\n\n  next();\n});\nPostSchema.methods = {\n  _slugify() {\n    this.slug = (0, _slug2.default)(this.title);\n  },\n\n  toJSON() {\n    return {\n      _id: this._id,\n      title: this.title,\n      text: this.text,\n      createdAt: this.createdAt,\n      slug: this.slug,\n      user: this.user,\n      favoriteCount: this.favoriteCount\n    };\n  }\n\n};\nPostSchema.statics = {\n  createPost(args, user) {\n    return this.create({ ...args,\n      user\n    });\n  }\n\n};\nexports.default = _mongoose2.default.model('Post', PostSchema);\n\n//# sourceURL=webpack:///./src/modules/posts/post.model.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nvar _mongooseUniqueValidator = __webpack_require__(/*! mongoose-unique-validator */ \"mongoose-unique-validator\");\n\nvar _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst PostSchema = new _mongoose.Schema({\n  title: {\n    type: String,\n    trim: true,\n    default: null\n  },\n  parentid: {\n    type: String,\n    trim: true,\n    default: null\n  },\n  doctorid: {\n    type: String,\n    trim: true,\n    default: null\n  },\n  text: {\n    type: String,\n    trim: true,\n    required: [true, 'Text   is required!'],\n    minlength: [10, 'Text   need to be longer!']\n  },\n  user: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'User'\n  },\n  favoriteCount: {\n    type: Number,\n    default: 0\n  }\n}, {\n  timestamps: true\n});\nPostSchema.plugin(_mongooseUniqueValidator2.default, {\n  message: '{VALUE} already taken!'\n});\nPostSchema.pre('validate', function (next) {\n  next();\n});\nPostSchema.methods = {\n  toJSON() {\n    return {\n      _id: this._id,\n      title: this.title,\n      text: this.text,\n      parentid: this.parentid,\n      createdAt: this.createdAt,\n      user: this.user,\n      doctorid: this.doctorid,\n      favoriteCount: this.favoriteCount\n    };\n  }\n\n};\nPostSchema.statics = {\n  createPost(args, user) {\n    return this.create({ ...args,\n      user\n    });\n  }\n\n};\nexports.default = _mongoose2.default.model('Post', PostSchema);\n\n//# sourceURL=webpack:///./src/modules/posts/post.model.js?");
 
 /***/ }),
 
@@ -179,7 +263,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _expressValidation = __webpack_require__(/*! express-validation */ \"express-validation\");\n\nvar _expressValidation2 = _interopRequireDefault(_expressValidation);\n\nvar _post = __webpack_require__(/*! ./post.controllers */ \"./src/modules/posts/post.controllers.js\");\n\nvar postController = _interopRequireWildcard(_post);\n\nvar _auth = __webpack_require__(/*! ../../services/auth.services */ \"./src/services/auth.services.js\");\n\nvar _post2 = __webpack_require__(/*! ./post.validations */ \"./src/modules/posts/post.validations.js\");\n\nvar _post3 = _interopRequireDefault(_post2);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst routes = new _express.Router();\nroutes.post('/', _auth.authJwt, (0, _expressValidation2.default)(_post3.default.createPost), postController.createPost);\nroutes.get('/:id', postController.getPostById);\nroutes.get('/user/:id', postController.getPostByUserId);\nroutes.get('/', postController.getAllPosts);\nexports.default = routes;\n\n//# sourceURL=webpack:///./src/modules/posts/post.routes.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _expressValidation = __webpack_require__(/*! express-validation */ \"express-validation\");\n\nvar _expressValidation2 = _interopRequireDefault(_expressValidation);\n\nvar _post = __webpack_require__(/*! ./post.controllers */ \"./src/modules/posts/post.controllers.js\");\n\nvar postController = _interopRequireWildcard(_post);\n\nvar _auth = __webpack_require__(/*! ../../services/auth.services */ \"./src/services/auth.services.js\");\n\nvar _post2 = __webpack_require__(/*! ./post.validations */ \"./src/modules/posts/post.validations.js\");\n\nvar _post3 = _interopRequireDefault(_post2);\n\nfunction _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \"function\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }\n\nfunction _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \"object\" && typeof obj !== \"function\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \"default\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst routes = new _express.Router();\nroutes.post('/', _auth.authJwt, (0, _expressValidation2.default)(_post3.default.createPost), postController.createPost);\nroutes.get('/:id', postController.getPostById);\nroutes.get('/user/:id', postController.getPostByUserId);\nroutes.get('/', postController.getAllPosts);\nexports.default = routes;\n\n//# sourceURL=webpack:///./src/modules/posts/post.routes.js?");
 
 /***/ }),
 
@@ -191,7 +275,91 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _joi = __webpack_require__(/*! joi */ \"joi\");\n\nvar _joi2 = _interopRequireDefault(_joi);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = {\n  createPost: {\n    body: {\n      title: _joi2.default.string().required(),\n      text: _joi2.default.string().required()\n    }\n  }\n};\n\n//# sourceURL=webpack:///./src/modules/posts/post.validations.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _joi = __webpack_require__(/*! joi */ \"joi\");\n\nvar _joi2 = _interopRequireDefault(_joi);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = {\n  createPost: {\n    body: {\n      title: _joi2.default.string(),\n      text: _joi2.default.string().required(),\n      parentid: _joi2.default.string(),\n      doctorid: _joi2.default.string()\n    }\n  }\n};\n\n//# sourceURL=webpack:///./src/modules/posts/post.validations.js?");
+
+/***/ }),
+
+/***/ "./src/modules/postsymp/postsymp.controllers.js":
+/*!******************************************************!*\
+  !*** ./src/modules/postsymp/postsymp.controllers.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.createPostsymp = createPostsymp;\nexports.getPostsympById = getPostsympById;\n\nvar _postsymp = __webpack_require__(/*! ./postsymp.model */ \"./src/modules/postsymp/postsymp.model.js\");\n\nvar _postsymp2 = _interopRequireDefault(_postsymp);\n\nvar _httpStatus = __webpack_require__(/*! http-status */ \"http-status\");\n\nvar _httpStatus2 = _interopRequireDefault(_httpStatus);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nasync function createPostsymp(req, res) {\n  try {\n    const postsymp = await _postsymp2.default.create(req.post.id, req.symptom.id);\n    return res.status(_httpStatus2.default.CREATED).json(postsymp);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getPostsympById(req, res) {\n  try {\n    const postsymp = await Postsymp.findById(req.params.id).populate('post');\n    return res.status(_httpStatus2.default.OK).json(postsymp);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\n//# sourceURL=webpack:///./src/modules/postsymp/postsymp.controllers.js?");
+
+/***/ }),
+
+/***/ "./src/modules/postsymp/postsymp.model.js":
+/*!************************************************!*\
+  !*** ./src/modules/postsymp/postsymp.model.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst PostsympSchema = new _mongoose.Schema({\n  post: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'Post'\n  },\n  symptom: {\n    type: _mongoose.Schema.Types.ObjectId,\n    ref: 'Symtom'\n  }\n});\nPostsympSchema.methods = {\n  toJSON() {\n    return {\n      _id: this._id,\n      post: this.post,\n      symptom: this.symptom\n    };\n  }\n\n};\nexports.default = _mongoose2.default.model('PostsymptomSchema', PostsympSchema);\n\n//# sourceURL=webpack:///./src/modules/postsymp/postsymp.model.js?");
+
+/***/ }),
+
+/***/ "./src/modules/postsymp/postsymp.routes.js":
+/*!*************************************************!*\
+  !*** ./src/modules/postsymp/postsymp.routes.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _postsymp = __webpack_require__(/*! ./postsymp.controllers */ \"./src/modules/postsymp/postsymp.controllers.js\");\n\nvar PostsympController = _interopRequireWildcard(_postsymp);\n\nfunction _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \"function\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }\n\nfunction _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \"object\" && typeof obj !== \"function\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \"default\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }\n\nconst routes = new _express.Router();\nroutes.post('/', PostsympController.createPostsymp);\nroutes.get('/:id', PostsympController.getPostsympById);\nexports.default = routes;\n\n//# sourceURL=webpack:///./src/modules/postsymp/postsymp.routes.js?");
+
+/***/ }),
+
+/***/ "./src/modules/specialization/specialization.controllers.js":
+/*!******************************************************************!*\
+  !*** ./src/modules/specialization/specialization.controllers.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.createSpecialization = createSpecialization;\nexports.getSpecializationById = getSpecializationById;\nexports.getAllSpecializations = getAllSpecializations;\n\nvar _specialization = __webpack_require__(/*! ./specialization.model */ \"./src/modules/specialization/specialization.model.js\");\n\nvar _specialization2 = _interopRequireDefault(_specialization);\n\nvar _httpStatus = __webpack_require__(/*! http-status */ \"http-status\");\n\nvar _httpStatus2 = _interopRequireDefault(_httpStatus);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nasync function createSpecialization(req, res) {\n  try {\n    const specialization = await _specialization2.default.create(req.body);\n    return res.status(_httpStatus2.default.CREATED).json(specialization);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getSpecializationById(req, res) {\n  try {\n    const specialization = await _specialization2.default.findById(req.params.id).populate('doctor');\n    return res.status(_httpStatus2.default.OK).json(specialization);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\nasync function getAllSpecializations(req, res) {\n  try {\n    const specialization = await _specialization2.default.find(req.params.id);\n    return res.status(_httpStatus2.default.OK).json(specialization);\n  } catch (e) {\n    return res.status(_httpStatus2.default.BAD_REQUEST).json(e);\n  }\n}\n\n//# sourceURL=webpack:///./src/modules/specialization/specialization.controllers.js?");
+
+/***/ }),
+
+/***/ "./src/modules/specialization/specialization.model.js":
+/*!************************************************************!*\
+  !*** ./src/modules/specialization/specialization.model.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nvar _mongoose2 = _interopRequireDefault(_mongoose);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst SpecializationSchema = new _mongoose.Schema({\n  name: {\n    type: String,\n    required: [true, 'Name   is required!'],\n    unique: true\n  }\n});\nSpecializationSchema.methods = {\n  toJSON() {\n    return {\n      _id: this._id,\n      name: this.name\n    };\n  }\n\n};\nexports.default = _mongoose2.default.model('Specialization', SpecializationSchema);\n\n//# sourceURL=webpack:///./src/modules/specialization/specialization.model.js?");
+
+/***/ }),
+
+/***/ "./src/modules/specialization/specialization.routes.js":
+/*!*************************************************************!*\
+  !*** ./src/modules/specialization/specialization.routes.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _expressValidation = __webpack_require__(/*! express-validation */ \"express-validation\");\n\nvar _expressValidation2 = _interopRequireDefault(_expressValidation);\n\nvar _specialization = __webpack_require__(/*! ./specialization.controllers */ \"./src/modules/specialization/specialization.controllers.js\");\n\nvar specializationController = _interopRequireWildcard(_specialization);\n\nvar _specialization2 = __webpack_require__(/*! ./specialization.validations */ \"./src/modules/specialization/specialization.validations.js\");\n\nvar _specialization3 = _interopRequireDefault(_specialization2);\n\nfunction _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \"function\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }\n\nfunction _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \"object\" && typeof obj !== \"function\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \"default\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst routes = new _express.Router();\nroutes.post('/', (0, _expressValidation2.default)(_specialization3.default.createSpecialization), specializationController.createSpecialization);\nroutes.get('/:id', specializationController.getSpecializationById);\nroutes.get('/', specializationController.getAllSpecializations);\nexports.default = routes;\n\n//# sourceURL=webpack:///./src/modules/specialization/specialization.routes.js?");
+
+/***/ }),
+
+/***/ "./src/modules/specialization/specialization.validations.js":
+/*!******************************************************************!*\
+  !*** ./src/modules/specialization/specialization.validations.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _joi = __webpack_require__(/*! joi */ \"joi\");\n\nvar _joi2 = _interopRequireDefault(_joi);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = {\n  createSpecialization: {\n    body: {\n      name: _joi2.default.string().required()\n    }\n  }\n};\n\n//# sourceURL=webpack:///./src/modules/specialization/specialization.validations.js?");
 
 /***/ }),
 
@@ -227,7 +395,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _auth = __webpack_require__(/*! ../../services/auth.services */ \"./src/services/auth.services.js\");\n\nvar _expressValidation = __webpack_require__(/*! express-validation */ \"express-validation\");\n\nvar _expressValidation2 = _interopRequireDefault(_expressValidation);\n\nvar _user = __webpack_require__(/*! ./user.controllers */ \"./src/modules/users/user.controllers.js\");\n\nvar userController = _interopRequireWildcard(_user);\n\nvar _user2 = __webpack_require__(/*! ./user.validations */ \"./src/modules/users/user.validations.js\");\n\nvar _user3 = _interopRequireDefault(_user2);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst routes = new _express.Router();\nroutes.post('/signup', (0, _expressValidation2.default)(_user3.default.signup), userController.signUp);\nexports.default = routes;\nroutes.post('/login', _auth.authLocal, userController.login);\n\n//# sourceURL=webpack:///./src/modules/users/user.routes.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar _auth = __webpack_require__(/*! ../../services/auth.services */ \"./src/services/auth.services.js\");\n\nvar _expressValidation = __webpack_require__(/*! express-validation */ \"express-validation\");\n\nvar _expressValidation2 = _interopRequireDefault(_expressValidation);\n\nvar _user = __webpack_require__(/*! ./user.controllers */ \"./src/modules/users/user.controllers.js\");\n\nvar userController = _interopRequireWildcard(_user);\n\nvar _user2 = __webpack_require__(/*! ./user.validations */ \"./src/modules/users/user.validations.js\");\n\nvar _user3 = _interopRequireDefault(_user2);\n\nfunction _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== \"function\") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }\n\nfunction _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== \"object\" && typeof obj !== \"function\") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== \"default\" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nconst routes = new _express.Router();\nroutes.post('/signup', (0, _expressValidation2.default)(_user3.default.signup), userController.signUp);\nexports.default = routes;\nroutes.post('/login', _auth.authLocal, userController.login);\n\n//# sourceURL=webpack:///./src/modules/users/user.routes.js?");
 
 /***/ }),
 
@@ -440,17 +608,6 @@ eval("module.exports = require(\"passport-jwt\");\n\n//# sourceURL=webpack:///ex
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"passport-local\");\n\n//# sourceURL=webpack:///external_%22passport-local%22?");
-
-/***/ }),
-
-/***/ "slug":
-/*!***********************!*\
-  !*** external "slug" ***!
-  \***********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"slug\");\n\n//# sourceURL=webpack:///external_%22slug%22?");
 
 /***/ }),
 

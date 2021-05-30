@@ -3,7 +3,7 @@ import HTTPStatus from 'http-status';
  
 export async function createSymptom(req, res) {
   try {
-    const symptom = await Symptom.createSymptom(req.body, req.post._id);
+    const symptom = await Symptom.create(req.body);
       return   res.status(HTTPStatus.CREATED).json(symptom);
   } catch (e) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);

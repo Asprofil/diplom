@@ -6,12 +6,13 @@ import validate from 'express-validation';
  
  const routes = new Router();
  
- routes.specialization(
+ routes.post(
    '/',
    validate(specializationValidation.createSpecialization),
    specializationController.createSpecialization
  );
 
  routes.get('/:id', specializationController.getSpecializationById);
+ routes.get('/', specializationController.getAllSpecializations);
  
  export default routes;

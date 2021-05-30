@@ -1,6 +1,4 @@
 import { Router } from 'express';
-import validate from 'express-validation';
- 
  import * as symptomController from './symtom.controllers'
  import symptomValidation from './symtom.validations';
  
