@@ -13,7 +13,7 @@ import validate from 'express-validation';
    validate(postValidation.createPost),
    postController.createPost
  );
-
+ routes.get('/p', postController.getParentPosts);
  routes.get('/:id', postController.getPostById);
  routes.get('/user/:id', postController.getPostByUserId);
  routes.get('/', postController.getAllPosts);

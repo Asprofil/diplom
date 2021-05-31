@@ -19,31 +19,21 @@ function App() {
     <div className="App">
 
 <Router>
-
-<Link to="/"></Link>
-
     <Switch>
-<Route path="/complain">
-<NewComplain />
+    <Route exact path="/" component={Main}>
 </Route>
-<Route path="/about">
-<AboutUs />
+<Route path="/complain" component={NewComplain}>
 </Route>
-<Route path="/profile">
-<MyProfile />
+<Route path="/about" component={AboutUs}>
 </Route>
-<Route path="/doctor">
-<DoctorList />
+<Route path="/profile" component={MyProfile}>
 </Route>
-<Route path="/login">
-<Login />
+<Route path="/doctor" component={DoctorList}>
 </Route>
-<Route path="/signin">
-<SignIn />
+<Route path="/login" component={Login}>
 </Route>
-<Route path='/'>
-<Main />
-      </Route>
+<Route path="/signin" component={SignIn}>
+</Route>
     </Switch>
 </Router>
       </div>

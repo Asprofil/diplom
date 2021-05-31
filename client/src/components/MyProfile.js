@@ -1,4 +1,4 @@
-import react from 'react'
+import React,{useEffect} from 'react'
 import './MyProfile.css'
 import Header from './Header.js'
 import Image from 'react-bootstrap/Image'
@@ -9,10 +9,11 @@ import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Route } from 'react-router'
+import PostList from './PostList'
 
 export default function MyProfile(){
     return(
-        <div>
+        <div>        
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -111,7 +112,10 @@ export default function MyProfile(){
 </Col>
 </Row>
 </Container>
+<PostList />
             </div>
+            
         </div>
     )
+
 }

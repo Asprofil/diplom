@@ -33,6 +33,19 @@ export async function getAllPosts(req,res) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
+export async function getParentPosts(req,res) {
+  try {
+    Post.find({parentid :{ $eq: null } }).populate('user')
+    .then( post => {     
+      return res.status(HTTPStatus.OK).json(post);
+    }).catch( e=>{
+      console.log(`Error Post.find({})`);
+      return res.status(HTTPStatus.BAD_REQUEST).json(e)
+    })    
+  } catch (e) {
+    return res.status(HTTPStatus.BAD_REQUEST).json(e);
+  }
+}
 export async function getPostByUserId(req, res) {
   try {
     const filter = {user : req.params.id};
