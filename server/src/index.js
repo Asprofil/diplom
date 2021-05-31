@@ -9,12 +9,12 @@ middlewaresConfig(app);
 
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('../swagger.json');
-app.use('/', express.static('dist/public'));
+app.use('/', express.static('../client/dist'));
 const resolve = require('path').resolve
 app.get('/', function(req, res){
 
     // save html files in the `views` folder...
-    res.sendFile(resolve('dist/public/index.html'));
+    res.sendFile(resolve('../client/dist/index.html'));
 });
 // app.get('/', (req, res) => {
 //    res.send('Hello world!');
@@ -27,7 +27,7 @@ app.listen(constants.PORT, err => {
         throw err;
     } else {
         console.log(` Server running on port: ${constants.PORT} --- Running on ${process.env.NODE_ENV} --- Make something great `);
-        console.log(` Dirname: ${resolve('dist/public/index.html')} `);               
+        console.log(` Dirname: ${resolve('../client/dist/index.html')} `);               
     }
 });
 app.use(
