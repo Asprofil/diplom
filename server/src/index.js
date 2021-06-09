@@ -10,6 +10,12 @@ middlewaresConfig(app);
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('../swagger.json');
 app.use('/', express.static('../client/dist'));
+app.use('/profile', express.static('../client/dist'));
+app.use('/doctor', express.static('../client/dist'));
+app.use('/login', express.static('../client/dist'));
+app.use('/signin', express.static('../client/dist'));
+app.use('/complain', express.static('../client/dist'));
+app.use('/about', express.static('../client/dist'));
 const resolve = require('path').resolve
 app.get('/', function(req, res){
 
