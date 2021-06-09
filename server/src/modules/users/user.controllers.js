@@ -1,6 +1,8 @@
 import User from './user.model';
 import HTTPStatus from 'http-status';
 
+
+
 export   async function signUp(req, res) {
     try {
       const user = await User.create(req.body);

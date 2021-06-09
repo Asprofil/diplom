@@ -1,4 +1,4 @@
-import react from 'react'
+import react, { Component } from 'react'
 import './Login.css'
 import Header from './Header.js'
 import Form from 'react-bootstrap/Form'
@@ -6,8 +6,33 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import axios from "axios"
 
-export default function Login(){
+class Login extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+      email:'',
+      password:'',
+    }
+}
+ChangeHandler=(e)=>{
+  this.setState({[e.target.name]:e.target.value})
+}
+
+submitHandler=(e)=>{
+e.preventDefault()
+console.log(this.state)
+axios.post('http://localhost:3000/api/v1/users/login', this.state)
+.then(response =>{
+console.log(response)
+})
+.catch(error=>{
+  console.log(error)
+})
+}
+  render(){
+    const{email,password}=this.state
     return(
         <div>
             <link
@@ -21,21 +46,15 @@ export default function Login(){
               <Container>
                 <Row>
                   <Col>
-                <Form className='format'> 
-  <Form.Group controlId="formBasicEmail">
-    <Form.Label>Login</Form.Label>
-    <Form.Control type="Login" placeholder="Login" />
-    <Form.Text className="text-muted">
-      We'll never share your login with anyone else.
-    </Form.Text>
+                <Form onSubmit={this.submitHandler}> 
+  <Form.Group onChange={this.ChangeHandler} value={email}>
+    <Form.Label>E-mail</Form.Label>
+    <Form.Control name="email" placeholder="Email" />
   </Form.Group>
 
-  <Form.Group controlId="formBasicPassword">
+  <Form.Group onChange={this.ChangeHandler} value={password}>
     <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
+    <Form.Control name="password" placeholder="Password" />
   </Form.Group>
   <Button variant="primary" type="submit">
     Submit
@@ -47,4 +66,7 @@ export default function Login(){
             </div>
         </div>
     )
+  }
 }
+
+export default Login
