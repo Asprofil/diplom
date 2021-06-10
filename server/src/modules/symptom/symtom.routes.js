@@ -1,10 +1,10 @@
 import { Router } from 'express';
  import * as symptomController from './symtom.controllers'
  import symptomValidation from './symtom.validations';
- 
+ import validate from 'express-validation';
  const routes = new Router();
  
- routes.symptom(
+ routes.post(
    '/',
    validate(symptomValidation.createSymptom),
    symptomController.createSymptom
