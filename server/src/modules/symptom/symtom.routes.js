@@ -11,5 +11,5 @@ import { Router } from 'express';
  );
 
  routes.get('/:id', symptomController.getSymptomById);
- 
+ routes.get('/', symptomController.getAllSymptom);
  export default routes;

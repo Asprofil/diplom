@@ -1,11 +1,40 @@
-import react from 'react'
+import react,{Component} from 'react'
 import './NewComplain.css'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Header from './Header.js'
+import axios from "axios"
+import Symptom from './Symptom'
+class NewComplain extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+      title:'',
+      text:'',
+    }
+}
+ChangeHandler=(e)=>{
+  this.setState({[e.target.name]:e.target.value})
+}
 
-export default function NewComplain(){
-    return(
+submitHandler=(e)=>{
+e.preventDefault()
+console.log(this.state)
+const options = {
+  headers: {'Authorization': localStorage.getItem("Authorization")}
+};
+console.log(options)
+axios.post('http://localhost:3000/api/v1/posts', this.state,options)
+.then(response =>{
+console.log(response)
+})
+.catch(error=>{
+  console.log(error)
+})
+}
+  render(){  
+    const{title,text}=this.state
+  return(
     <div>
         <link
   rel="stylesheet"
@@ -16,19 +45,26 @@ export default function NewComplain(){
         <Header></Header>
         <div className='boxing'>
           <div className='information'>
-<Form>
-
-  <Form.Group controlId="exampleForm.ControlTextarea1">
+<Form onSubmit={this.submitHandler}>
+<Form.Group onChange={this.ChangeHandler} value={title}>
   <Form.Label>Title</Form.Label>
-    <Form.Control as="textarea" rows={3} />
+    <Form.Control name="title"  rows={1} />
+    </Form.Group>
+    <Form.Group onChange={this.ChangeHandler} value={text}>
     <Form.Label>Describe your complain</Form.Label>
-    <Form.Control as="textarea" rows={3} />
-  </Form.Group>
- 
-</Form>
-<Button variant="sumbit">Send</Button>{' '}
+    <Form.Control as="textarea" name="text" rows={3} />
+    </Form.Group>
+ <Symptom />
+
+<Button variant="primary" type="submit">
+    Send
+  </Button>
+  </Form>
 </div>
 </div>
 </div>
 )
 }
+}
+
+export default NewComplain

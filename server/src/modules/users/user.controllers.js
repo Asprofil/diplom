@@ -16,3 +16,11 @@ export   async function signUp(req, res) {
     res.status(HTTPStatus.OK).json(req.user.toAuthJSON());
     return next();
    }
+   export async function getUserById(req, res) {
+    try {
+      const user = await User.findById(req.params.id).populate('user');
+      return res.status(HTTPStatus.OK).json(user);
+    } catch (e) {
+      return res.status(HTTPStatus.BAD_REQUEST).json(e);
+    }
+  }

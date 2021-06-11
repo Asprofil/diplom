@@ -18,3 +18,11 @@ export async function getSymptomById(req, res) {
     return res.status(HTTPStatus.BAD_REQUEST).json(e);
   }
 }
+export async function getAllSymptom(req, res) {
+  try {
+    const symptom = await Symptom.find(req.params.id);
+    return res.status(HTTPStatus.OK).json(symptom);
+  } catch (e) {
+    return res.status(HTTPStatus.BAD_REQUEST).json(e);
+  }
+}

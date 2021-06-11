@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{Component} from 'react'
 import './MyProfile.css'
 import Header from './Header.js'
 import Image from 'react-bootstrap/Image'
@@ -6,12 +6,14 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import { Route } from 'react-router'
 import PostList from './PostList'
-
-export default function MyProfile(){
+import axios from "axios"
+import User from './User'
+ class MyProfile extends Component{
+ 
+   render(){
+    const options='http://localhost:3000/api/v1/users/'+localStorage.getItem('User')
+    console.log(options)
     return(
         <div>        
 <link
@@ -23,7 +25,7 @@ export default function MyProfile(){
             <Header></Header>
             <div className='boxing'>
               <Container>
-                <Row xl="4">
+                <Row sm="2">
                   <Col>
                   <div className="photo">
                 <Image class="img-fluid" src="https://www.worldfuturecouncil.org/wp-content/uploads/2020/06/blank-profile-picture-973460_1280-1.png" fluid />
@@ -31,91 +33,22 @@ export default function MyProfile(){
                 </Col>
                 <Col>
 <Table striped bordered hover>
-  <tbody>
-    <tr>
-      <td>Name</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Last name</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Chosen doctor</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Phone number</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>E-mail</td>
-      <td></td>
-    </tr>
-  </tbody>
+<User />
 </Table>
 </Col>
 </Row>
 <Row>
 <Table striped bordered hover size="sm">
-  <thead>
-    <tr>
-      <th>№</th>
-      <th>Complaint</th>
-      <th>Date</th>
-      <th>Doctor</th>
-      <th>Discription</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    
-  </tbody>
+<PostList className="posts" />
 </Table>
 </Row>
-<Row>
-  <Col>
-<Form>
-  <Form.Group controlId="formBasicEmail">
-    <Form.Label>Old password</Form.Label>
-    <Form.Control type="password" placeholder="Old password" />
-  </Form.Group>
-
-  <Form.Group controlId="formBasicPassword">
-    <Form.Label>New password</Form.Label>
-    <Form.Control type="confirm password" placeholder="New password" />
-  </Form.Group>
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form>
-</Col>
-</Row>
 </Container>
-<PostList />
+
             </div>
             
         </div>
     )
-
+  }
 }
+
+export default MyProfile

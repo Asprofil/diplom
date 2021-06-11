@@ -26,6 +26,11 @@ console.log(this.state)
 axios.post('http://localhost:3000/api/v1/users/login', this.state)
 .then(response =>{
 console.log(response)
+console.log(response.data.token)
+console.log(response.data._id)
+localStorage.setItem("User",response.data._id)
+localStorage.setItem("Authorization",response.data.token)
+window.location.replace("http://localhost:3000/");
 })
 .catch(error=>{
   console.log(error)

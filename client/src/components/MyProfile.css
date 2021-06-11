@@ -6,7 +6,7 @@
     margin: 0pt;
 }
 .photo{
-    width: 90%;
+    width: 30%;
 }
 .list-group{
 
@@ -23,4 +23,16 @@
 .btn-primary{
     background: #BECEA4 !important;
     border-color: #BECEA4 !important;
+}
+
+.posts{
+    width: 30% !important;
+}
+.postt{
+    width: fit-content;
+    margin: 0.75rem;
+    background: #9DAD8C;
+}
+.table-bordered {
+    border: 1px solid transparent !important;
 }

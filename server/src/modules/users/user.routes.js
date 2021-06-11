@@ -13,3 +13,4 @@ routes.post('/signup', validate(userValidation.signup),   userController.signUp)
 export default   routes;
 
 routes.post('/login', authLocal, userController.login);
+routes.get('/:id', userController.getUserById);

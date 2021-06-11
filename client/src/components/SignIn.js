@@ -25,6 +25,7 @@ console.log(this.state)
 axios.post('http://localhost:3000/api/v1/users/signup', this.state)
 .then(response =>{
 console.log(response)
+window.location.replace("http://localhost:3000/");
 })
 .catch(error=>{
   console.log(error)
