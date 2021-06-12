@@ -27,11 +27,11 @@ li{
     margin-left: 24pt;
 }
 .right{
-    position: relative;
-    right: -55% !important;
+    display: inherit;
 }
 .link{
     color: black !important;
     padding: 0pt !important;
     margin-left: 10pt;
+    display: inline;
 }
