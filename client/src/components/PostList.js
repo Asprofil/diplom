@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import axios from "axios"
+
 class PostList extends Component {
     constructor(props){
         super(props)
@@ -7,6 +8,7 @@ class PostList extends Component {
             posts:[]
         }
     }
+ 
     componentDidMount(){
        axios.get('http://localhost:3000/api/v1/posts/user/'+localStorage.getItem('User'))
        .then(response=>{
@@ -17,13 +19,9 @@ class PostList extends Component {
            console.log(error)
        })
     }
+   
     render(){
         const {posts}=this.state
-        // let i=0
-        // const {item}=''
-        // for(i = 0; i < 6; i++){
-        //     {item += posts.createdAt[i]}  
-        // }
         return(
             <div className="postt">
              <thead>
@@ -37,11 +35,10 @@ class PostList extends Component {
                 {
                   
               posts.map(posts=>              
-        
-              
                 <tr>
-                    <td>{posts.createdAt[0]
-                    }{posts.createdAt[1]}
+                    <td>
+                    {posts.createdAt[0]}
+                    {posts.createdAt[1]}
                     {posts.createdAt[2]}
                     {posts.createdAt[3]}
                     {posts.createdAt[4]}
@@ -53,9 +50,9 @@ class PostList extends Component {
                     </td>
                     <td>{posts.title}</td>
                     <td>{posts.text}</td>
+
                 </tr>
                         )
-              
                 }
             </tbody>
             </div>

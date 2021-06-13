@@ -9,18 +9,19 @@ middlewaresConfig(app);
 
 const swaggerUi = require('swagger-ui-express'),
 swaggerDocument = require('../swagger.json');
-app.use('/', express.static('../client/dist'));
-app.use('/profile', express.static('../client/dist'));
-app.use('/doctor', express.static('../client/dist'));
-app.use('/login', express.static('../client/dist'));
-app.use('/signin', express.static('../client/dist'));
-app.use('/complain', express.static('../client/dist'));
-app.use('/about', express.static('../client/dist'));
+app.use('/', express.static('../client/build'));
+app.use('/profile', express.static('../client/build'));
+app.use('/doctor', express.static('../client/build'));
+app.use('/login', express.static('../client/build'));
+app.use('/signin', express.static('../client/build'));
+app.use('/complain', express.static('../client/build'));
+app.use('/about', express.static('../client/build'));
+app.use('/answer', express.static('../client/build'));
 const resolve = require('path').resolve
 app.get('/', function(req, res){
 
     // save html files in the `views` folder...
-    res.sendFile(resolve('../client/dist/index.html'));
+    res.sendFile(resolve('../client/build/index.html'));
 });
 // app.get('/', (req, res) => {
 //    res.send('Hello world!');
@@ -33,7 +34,7 @@ app.listen(constants.PORT, err => {
         throw err;
     } else {
         console.log(` Server running on port: ${constants.PORT} --- Running on ${process.env.NODE_ENV} --- Make something great `);
-        console.log(` Dirname: ${resolve('../client/dist/index.html')} `);               
+        console.log(` Dirname: ${resolve('../client/build/index.html')} `);               
     }
 });
 app.use(

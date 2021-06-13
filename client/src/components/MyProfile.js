@@ -7,9 +7,19 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import PostList from './PostList'
-import axios from "axios"
+import Button from 'react-bootstrap/Button'
+
 import User from './User'
- class MyProfile extends Component{
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+ 
+
+
+class MyProfile extends Component{
  
    render(){
     const options='http://localhost:3000/api/v1/users/'+localStorage.getItem('User')
@@ -24,7 +34,7 @@ import User from './User'
 />
             <Header></Header>
             <div className='boxing'>
-              <Container>
+            {localStorage.getItem("User")?<Container>
                 <Row sm="2">
                   <Col>
                   <div className="photo">
@@ -43,7 +53,15 @@ import User from './User'
 </Table>
 </Row>
 </Container>
-
+:<div className="containe">
+  <p>To use thе page please</p>
+  <Button variant="primary"><Link className="link" to="/signin">Sign in</Link></Button>
+  <p>Or if you have account</p>
+<Button variant="primary"><Link className="link" to="/login">Log in</Link></Button>
+ </div>
+}
+              
+   
             </div>
             
         </div>
