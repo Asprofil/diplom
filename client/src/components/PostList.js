@@ -12,7 +12,11 @@ class PostList extends Component {
             posts:[]
         }
     }
- 
+    handleClick(e) {
+
+     }
+        
+
     componentDidMount(){
        axios.get('http://localhost:3000/api/v1/posts/user/'+localStorage.getItem('User'))
        .then(response=>{
@@ -27,6 +31,7 @@ class PostList extends Component {
     render(){
         const {posts}=this.state
         return(
+   
             <div className="postt">
              <thead>
                 <tr>
@@ -38,10 +43,11 @@ class PostList extends Component {
               <tbody>
                 {
                   
-              posts.map(posts=>              
-                <tr>
+              posts.map(posts=>        
+                      
+                <tr onClick={this.handleClick()}>
                     <td>
-                    <Link className="link" to="/answer">
+                    <Link  className="link" to={`/answer/${posts._id}`}>
                     {posts.createdAt[0]}
                     {posts.createdAt[1]}
                     {posts.createdAt[2]}
@@ -55,14 +61,14 @@ class PostList extends Component {
                     </Link>
                     </td>
                      <td>
-                        <Link className="link" to="/answer">
+                        <Link className="link" to={`/answer/${posts._id}`}>
                         {posts.title}
                          </Link>
                     </td>
                    
                     
                     <td>
-                    <Link className="link" to="/answer">
+                    <Link className="link" to={`/answer/${posts._id}`}>
                         {posts.text}
                         </Link>
                     </td>
@@ -71,6 +77,7 @@ class PostList extends Component {
                         )
                 }
             </tbody>
+           
             </div>
         )
     }

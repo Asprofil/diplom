@@ -16,7 +16,7 @@ app.use('/login', express.static('../client/build'));
 app.use('/signin', express.static('../client/build'));
 app.use('/complain', express.static('../client/build'));
 app.use('/about', express.static('../client/build'));
-app.use('/answer', express.static('../client/build'));
+app.use('/answer/:id', express.static('../client/build'));
 const resolve = require('path').resolve
 app.get('/', function(req, res){
 

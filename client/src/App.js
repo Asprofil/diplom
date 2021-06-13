@@ -36,7 +36,7 @@ function App() {
 </Route>
 <Route path="/signin" component={SignIn}>
 </Route>
-<Route path="/answer" component={Answer}>
+<Route path="/answer/:id" component={Answer}>
 </Route>
     </Switch>
 </Router>

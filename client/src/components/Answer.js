@@ -9,9 +9,18 @@ class Answer extends Component{
     constructor(props){
         super(props)
         this.state={
+          title:'',
           parentid:'',
           text:'',
         }
+    }
+   
+          
+    componentDidMount(){
+      let fullurl=window.location.href;
+      let parentid=fullurl.split('/')
+      let url=parentid[4]
+        localStorage.setItem("parentid",url)
     }
         ChangeHandler=(e)=>{
             this.setState({[e.target.name]:e.target.value})
@@ -26,14 +35,16 @@ class Answer extends Component{
           console.log(options)
           axios.post('http://localhost:3000/api/v1/posts', this.state,options)
           .then(response =>{
-          console.log(response)
+          console.log(response)   
           })
           .catch(error=>{
             console.log(error)
           })
           }
           render(){
-            const{parentid,text}=this.state
+          
+            const{parentid,title,text}=this.state
+            this.state.parentid=localStorage.getItem("parentid")
             return(
             <div>
                     <link
@@ -44,13 +55,19 @@ class Answer extends Component{
 />
         <Header></Header>
         <div className='boxing'>
+        <Form onSubmit={this.submitHandler}>
+    <Form.Group onChange={this.ChangeHandler} value={title}>
+      <Form.Label>Title</Form.Label>
+        <Form.Control name="title"  rows={1} />
+        </Form.Group>
         <Form.Group onChange={this.ChangeHandler} value={text}>
-        <Form.Label>Write your answer</Form.Label>
+        <Form.Label>Describe your complain</Form.Label>
         <Form.Control as="textarea" name="text" rows={3} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+     <Button variant="primary" type="submit">
         Send
       </Button>
+      </Form>
         </div>
             </div>
             )
