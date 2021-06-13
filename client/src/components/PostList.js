@@ -1,5 +1,9 @@
 import React,{Component} from 'react'
 import axios from "axios"
+import {
+    BrowserRouter as Router,
+    Link
+  } from "react-router-dom";
 
 class PostList extends Component {
     constructor(props){
@@ -37,6 +41,7 @@ class PostList extends Component {
               posts.map(posts=>              
                 <tr>
                     <td>
+                    <Link className="link" to="/answer">
                     {posts.createdAt[0]}
                     {posts.createdAt[1]}
                     {posts.createdAt[2]}
@@ -47,10 +52,21 @@ class PostList extends Component {
                     {posts.createdAt[7]}
                     {posts.createdAt[8]}
                     {posts.createdAt[9]}
+                    </Link>
                     </td>
-                    <td>{posts.title}</td>
-                    <td>{posts.text}</td>
-
+                     <td>
+                        <Link className="link" to="/answer">
+                        {posts.title}
+                         </Link>
+                    </td>
+                   
+                    
+                    <td>
+                    <Link className="link" to="/answer">
+                        {posts.text}
+                        </Link>
+                    </td>
+                    
                 </tr>
                         )
                 }

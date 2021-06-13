@@ -34,4 +34,6 @@ li{
     padding: 0pt !important;
     margin-left: 10pt;
     display: inline;
+    text-decoration: none;
+    text-decoration-color: transparent !important;
 }

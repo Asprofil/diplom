@@ -13,6 +13,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Answer from './components/Answer';
 
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
 <Route path="/login" component={Login}>
 </Route>
 <Route path="/signin" component={SignIn}>
+</Route>
+<Route path="/answer" component={Answer}>
 </Route>
     </Switch>
 </Router>
