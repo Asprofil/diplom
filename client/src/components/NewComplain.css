@@ -6,10 +6,13 @@
     margin: 0pt;
 }
 .information{
-    margin-left: 100pt;
+    margin-left: 20pt;
     padding-top: 100pt;
-        margin-right: 100pt;
 }
 .form-group{
-    width: 400pt;
+    width: 95%!important;
+}
+.cbut{
+    position: relative;
+    bottom: -190pt;
 }

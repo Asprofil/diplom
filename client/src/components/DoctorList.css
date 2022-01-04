@@ -5,13 +5,9 @@
     padding: 0pt;
     margin: 0pt;
 }
-.card-group{
-    width: 90%;
-}
+
 .card{
-    margin-left: 100pt;
-margin-top: 100pt;
-    margin-right: 100pt;
+    margin-top: 100pt;
 }
 .card-img-top{
     height: 250pt;
@@ -19,4 +15,9 @@ margin-top: 100pt;
 .card-text{
     display: list-item;
     list-style: none;
+}
+.doctor{
+width: 100% !important;
+padding-left: 30pt !important;
+padding-right: 30pt !important;
 }

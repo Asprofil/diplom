@@ -1,0 +1,7 @@
+.col{
+    padding-left: 50pt !important;
+    padding-right: 50pt !important;
+}
+.container, .container-lg, .container-md, .container-sm, .container-xl{
+    max-width: 100% !important;
+}

@@ -19,14 +19,14 @@ export default function DoctorList(){
     <Header></Header>
         <div className='boxing'>
           <Container>
-            <Row xl='2'>
-              <Col>
-  <Card>
+            <Row xl='4'>
+              <Col className="doctor">
+  <Card >
     <Card.Img  class="img-fluid" src="https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters_opt/p-scrubs-donald-faison.jpg" />
     <Card.Body>
       <Card.Title>Doctor 1</Card.Title>
       <Card.Text>
-  Name: Christopher Turk
+  Name:  Christopher Turk
       </Card.Text>
       <Card.Text>
   Age:30
@@ -38,7 +38,7 @@ export default function DoctorList(){
      </Card.Body>
   </Card>
   </Col>
-  <Col>
+  <Col className="doctor">
   <Card>
     <Card.Img class="img-fluid" src="https://pbs.twimg.com/profile_images/1148519824055853057/Gu-a7LHu_400x400.jpg" />
     <Card.Body>
@@ -56,7 +56,7 @@ export default function DoctorList(){
     </Card.Body>
   </Card>
   </Col>
-  <Col>
+  <Col className="doctor">
   <Card>
     <Card.Img class="img-fluid" src="https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters_opt/p-scrubs-sarah-chalke.jpg" />
     <Card.Body>
@@ -74,7 +74,7 @@ export default function DoctorList(){
     </Card.Body>
   </Card>
   </Col>
-  <Col>
+  <Col className="doctor">
   <Card>
     <Card.Img class="img-fluid" src="https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters_opt/p-scrubs-judy-reyes.jpg" />
     <Card.Body>

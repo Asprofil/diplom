@@ -59,11 +59,12 @@ console.log(response)
         <Form.Label>Describe your complain</Form.Label>
         <Form.Control as="textarea" name="text" rows={3} />
         </Form.Group>
-     <Symptom />
+     
     
-     <Button variant="primary" type="submit">
+     <Button className="cbut" variant="primary" type="submit">
         Send
       </Button>
+      <Symptom />
       </Form>
     </div>:<div className="containe">
   <p>To use thе page please</p>
